@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useParams, Link } from "react-router-dom";
 
 const Pokemon = ({pokemons, trainers}) => {
@@ -8,12 +8,11 @@ const Pokemon = ({pokemons, trainers}) => {
     const pokemon = pokemons.find((poke) => {
         return poke.id === idNum
     })
-    console.log(pokemon)
 
     const trainer = trainers.find((train) => {
         return pokemon.trainer_id === train.id
     })
-    console.log(trainer)
+
 
     if(!pokemon){
         return null
@@ -26,7 +25,6 @@ const Pokemon = ({pokemons, trainers}) => {
             {trainer?<Link to={`/trainers/${trainer.id}`}><h5>{trainer.name}</h5> </Link> : 
             
             <h5>No Trainer</h5> }
-            
         </div>
     )
 

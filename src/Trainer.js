@@ -1,7 +1,8 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
+import axios from "axios";
 
-const Trainer = ({trainers, pokemons}) => {
+const Trainer = ({trainers, pokemons, unassignPoke}) => {
     const {id} = useParams()
     const idNum = id*1
     const trainer = trainers.find((train) => {
@@ -13,6 +14,9 @@ const Trainer = ({trainers, pokemons}) => {
         return pokemon.trainer_id === idNum
     })
     console.log(pokeList)
+
+    
+
     if(!trainer){
         return null
     }
@@ -26,6 +30,7 @@ const Trainer = ({trainers, pokemons}) => {
                     return(
                         <div key={pokemon.id}>
                             <Link to={`/pokemon/${pokemon.id}`}><h5>{pokemon.name}</h5></Link>
+                            <button onClick={() => unassignPoke(pokemon)}>Unassign Pokemon</button>
                         </div>
                     )
                 })

@@ -13,7 +13,9 @@ const Assign = ({pokemons, trainers, assignTrainer}) => {
     const assign = (ev) => {
         ev.preventDefault()
         assignTrainer(selectedTrainer, selectedPoke)
+        alert("you did it")
     }
+
     return(
         <div>
             <h1>Assign</h1>

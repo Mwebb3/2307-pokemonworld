@@ -1,7 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const Trainers = ({trainers}) => {
+const Trainers = ({trainers, setTrainers}) => {
+  const [name, setName] = useState('');
+
+  const submit = async(event) => {
+    event.preventDefault();
+    const newTrainer = {name};
+    const {data} = await axios.post('/api/trainers', newTrainer);
+    console.log(newTrainer);
+    console.log(data);
+    setTrainers([...trainers, data])
+  }
+
     return (
       <div>
         <h1>All the Trainers</h1>
@@ -15,6 +27,13 @@ const Trainers = ({trainers}) => {
             )
           })
         }
+        <form onSubmit={submit}>
+          <label>
+            Add Trainer:
+            <input type="text" onChange={ev => setName(ev.target.value)}/>
+          </label>
+          <button type="submit">Submit</button>
+        </form>
       </div>
     )
   }

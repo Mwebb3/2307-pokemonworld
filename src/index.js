@@ -40,7 +40,12 @@ const App = ()=> {
     setPokemons(pokemons.map(poke => poke.id === pokemon.id ? pokemon : poke))
   }
 
-
+  const unassignPoke = async(pokemon) => {
+    pokemon = {...pokemon, trainer_id: null};
+    const response = await axios.put (`/api/pokemons/${pokemon.id}`, pokemon);
+    pokemon = response.data;
+    setPokemons(pokemons.map(poke => poke.id === pokemon.id ? pokemon : poke))
+  }
 
   return (
     <div>
@@ -53,11 +58,11 @@ const App = ()=> {
       </nav>
 
       <Routes>
-        <Route path='/pokemon' element={<Pokemons pokemons={pokemons}/>} />
-        <Route path='/trainers' element={<Trainers trainers={trainers} />}/>
+        <Route path='/pokemon' element={<Pokemons pokemons={pokemons} setPokemons={setPokemons}/>} />
+        <Route path='/trainers' element={<Trainers trainers={trainers} setTrainers={setTrainers}/>}/>
         <Route path='/assign' element={<Assign pokemons={pokemons} trainers={trainers} assignTrainer={assignTrainer}/>}/>
         <Route path='/pokemon/:id' element={<Pokemon pokemons={pokemons} trainers={trainers}/>}/>
-        <Route path='/trainers/:id' element={<Trainer trainers={trainers} pokemons={pokemons}/>}/>
+        <Route path='/trainers/:id' element={<Trainer trainers={trainers} pokemons={pokemons} unassignPoke={unassignPoke}/>}/>
       </Routes>
     </div>
   );
